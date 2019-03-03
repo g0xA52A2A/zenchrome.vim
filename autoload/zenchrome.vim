@@ -1,6 +1,8 @@
 function! zenchrome#GetColors()
   let colors = {}
-  for highlight in split(execute('highlight'), '\n')
+  " Ensure one highlight group per line
+  let highlights = substitute(execute('highlight'), '\n\s\+', ' ', 'g')
+  for highlight in split(highlights, '\n')
     let attributes = {}
     let group = split(highlight)[0]
     let group_attributes = split(highlight)[2:]
