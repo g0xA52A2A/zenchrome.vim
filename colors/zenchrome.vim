@@ -19,13 +19,13 @@ endif
 let s:Colorscheme = {
   \ 'Normal'     : { 'ctermfg': s:Foreground,      'ctermbg': s:Background,      'cterm': 'none'      },
   \
-  \ 'Constant'   : { 'ctermfg': s:LightForeground, 'ctermbg': s:Background,      'cterm': 'none'      },
+  \ 'Constant'   : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
   \ 'Cursor'     : { 'ctermfg': s:Background,      'ctermbg': s:LightForeground, 'cterm': 'none'      },
   \ 'CursorLine' : { 'ctermfg': 'none',            'ctermbg': 'none',            'cterm': 'underline' },
-  \ 'Error'      : { 'ctermfg': 'Red',             'ctermbg': s:Background,      'cterm': 'none'      },
-  \ 'PmenuSel'   : { 'ctermfg': s:LightForeground, 'ctermbg': s:Background,      'cterm': 'none'      },
+  \ 'Error'      : { 'ctermfg': 'Red',             'ctermbg': 'none',            'cterm': 'none'      },
+  \ 'PmenuSel'   : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
   \ 'Search'     : { 'ctermfg': 'none',            'ctermbg': 'none',            'cterm': 'underline' },
-  \ 'StatusLine' : { 'ctermfg': s:LightForeground, 'ctermbg': s:Background,      'cterm': 'none'      },
+  \ 'StatusLine' : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
   \ 'Visual'     : { 'ctermfg': s:Background,      'ctermbg': s:LightForeground, 'cterm': 'none'      },
   \
   \ 'Boolean'    : { 'links': 'Constant' },
