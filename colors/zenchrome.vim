@@ -4,12 +4,12 @@ endif
 
 let g:colors_name='zenchrome'
 
-if &background == 'light'
+if &background ==# 'light'
   let s:Foreground       = 'Black'
   let s:LightForeground  = 'DarkGrey'
   let s:Background       = 'White'
   let s:LightBackground  = 'LightGrey'
-elseif &background == 'dark'
+elseif &background ==# 'dark'
   let s:Foreground       = 'LightGrey'
   let s:LightForeground  = 'White'
   let s:Background       = 'Black'

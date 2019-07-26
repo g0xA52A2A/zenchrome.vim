@@ -6,9 +6,9 @@ function! zenchrome#GetColors()
     let attributes = {}
     let group = split(highlight)[0]
     let group_attributes = split(highlight)[2:]
-    if group_attributes[0] == 'cleared'
+    if group_attributes[0] ==# 'cleared'
       let attributes = 'cleared'
-    elseif group_attributes[0] == 'links'
+    elseif group_attributes[0] ==# 'links'
       let attributes['links'] = group_attributes[-1]
     else
       for attribute in group_attributes
@@ -25,7 +25,7 @@ endfunction
 function! zenchrome#SetColors(colors)
   for group in keys(a:colors)
     for attributes in items(get(a:colors, group))
-      if attributes[0] == 'links'
+      if attributes[0] ==# 'links'
         execute 'highlight link' group attributes[1]
       else
         " Note this is somewhat inifficent as we end up calling highlight for
