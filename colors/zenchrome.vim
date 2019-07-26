@@ -24,6 +24,7 @@ let s:Colorscheme = {
   \ 'CursorLine' : { 'ctermfg': 'none',            'ctermbg': 'none',            'cterm': 'underline' },
   \ 'Error'      : { 'ctermfg': 'Red',             'ctermbg': s:Background,      'cterm': 'none'      },
   \ 'PmenuSel'   : { 'ctermfg': s:LightForeground, 'ctermbg': s:Background,      'cterm': 'none'      },
+  \ 'Search'     : { 'ctermfg': 'none',            'ctermbg': 'none',            'cterm': 'underline' },
   \ 'StatusLine' : { 'ctermfg': s:LightForeground, 'ctermbg': s:Background,      'cterm': 'none'      },
   \ 'Visual'     : { 'ctermfg': s:Background,      'ctermbg': s:LightForeground, 'cterm': 'none'      },
   \
@@ -36,6 +37,8 @@ let s:Colorscheme = {
   \ 'SpellCap'   : { 'links': 'Error' },
   \ 'Todo'       : { 'links': 'Error' },
   \ 'WarningMsg' : { 'links': 'Error' },
+  \
+  \ 'IncSearch'  : { 'links': 'Search' },
   \ }
 
 " Clear all colors by passing an empty dictionary. Allows us to avoid setting
