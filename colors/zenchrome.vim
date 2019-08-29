@@ -16,7 +16,7 @@ elseif &background ==# 'dark'
   let s:LightBackground  = 'DarkGrey'
 endif
 
-let s:Colorscheme = {
+let g:Colorscheme = {
   \ 'Normal'     : { 'ctermfg': s:Foreground,      'ctermbg': s:Background,      'cterm': 'none'      },
   \
   \ 'Constant'   : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
@@ -40,15 +40,3 @@ let s:Colorscheme = {
   \
   \ 'IncSearch'  : { 'links': 'Search' },
   \ }
-
-" Clear all colors by passing an empty dictionary. Allows us to avoid setting
-" attributes in our theme just to override Vim's defaults in highlight groups.
-call zenchrome#ClearUndefinedColors({})
-
-call zenchrome#SetColors(s:Colorscheme)
-
-augroup zenchrome
-  autocmd!
-  autocmd Syntax * call zenchrome#ClearUndefinedColors(s:Colorscheme)
-  autocmd Colorscheme zenchrome call zenchrome#ClearUndefinedColors(s:Colorscheme)
-augroup END
