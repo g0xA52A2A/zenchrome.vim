@@ -11,11 +11,9 @@ function! zenchrome#GetColors()
     elseif group_attributes[0] ==# 'links'
       let attributes['links'] = group_attributes[-1]
     else
-      for attribute in group_attributes
-         let attribute_name = split(attribute, '=')[0]
-         let attribute_value = split(attribute, '=')[-1]
-         let attributes[attribute_name] = attribute_value
-      endfor
+      call map(group_attributes, "split(v:val, '=')")
+      call map(group_attributes, "{v:val[0]: v:val[1]}")
+      call map(group_attributes, "extend(attributes, v:val)")
     endif
     let colors[group] = attributes
   endfor
