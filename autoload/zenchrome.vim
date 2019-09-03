@@ -24,7 +24,7 @@ function! zenchrome#SetColors(colors)
   for highlight in items(a:colors)
     let group       = highlight[0]
     let attributes  = highlight[1]
-    if index(keys(attributes), 'links') == 0
+    if has_key(attributes, 'links')
       execute 'highlight link' group join(values(attributes))
     else
       execute 'highlight' group join(map(items(attributes), "join(v:val, '=')"))
