@@ -3,17 +3,17 @@ function! zenchrome#GetColors()
   " Ensure one highlight group per line
   let highlights = substitute(execute('highlight'), '\n\s\+', ' ', 'g')
   for highlight in split(highlights, '\n')
-    let attributes = {}
-    let group = split(highlight)[0]
-    let group_attributes = split(highlight)[2:]
-    if group_attributes[0] ==# 'cleared'
+    let group   = split(highlight)[0]
+    let values  = split(highlight)[2:]
+    if values[0] ==# 'cleared'
       let attributes = 'cleared'
-    elseif group_attributes[0] ==# 'links'
-      let attributes['links'] = group_attributes[-1]
+    elseif values[0] ==# 'links'
+      let attributes = {'links' : values[-1]}
     else
-      call map(group_attributes, "split(v:val, '=')")
-      call map(group_attributes, "{v:val[0]: v:val[1]}")
-      call map(group_attributes, "extend(attributes, v:val)")
+      let attributes = {}
+      call map(values, "split(v:val, '=')")
+      call map(values, "{v:val[0]: v:val[1]}")
+      call map(values, "extend(attributes, v:val)")
     endif
     let colors[group] = attributes
   endfor
