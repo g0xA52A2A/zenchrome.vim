@@ -23,16 +23,14 @@ function! zenchrome#GetColors()
 endfunction
 
 function! zenchrome#SetColors(colors)
-  for group in keys(a:colors)
-    for attributes in items(get(a:colors, group))
-      if attributes[0] ==# 'links'
-        execute 'highlight link' group attributes[1]
-      else
-        " Note this is somewhat inifficent as we end up calling highlight for
-        " each set of attributes a highlight group has.
-        execute 'highlight' group join(attributes, '=')
-      endif
-    endfor
+  for highlight in items(a:colors)
+    let group       = highlight[0]
+    let attributes  = highlight[1]
+    if index(keys(attributes), 'links') == 0
+      execute 'highlight link' group join(values(attributes))
+    else
+      execute 'highlight' group join(map(items(attributes), "join(v:val, '=')"))
+    endif
   endfor
 endfunction
 
