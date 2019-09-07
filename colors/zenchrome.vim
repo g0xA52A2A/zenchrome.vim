@@ -40,3 +40,15 @@ let g:Colorscheme = {
   \
   \ 'IncSearch'  : { 'links': 'Search' },
   \ }
+
+call zenchrome#ClearUndefinedColors(g:Colorscheme)
+call zenchrome#SetColors(g:Colorscheme)
+
+augroup zenchrome
+  autocmd!
+  autocmd Syntax * call zenchrome#ClearUndefinedColors(g:Colorscheme)
+  autocmd Colorscheme *
+    \ if g:colors_name !=# 'zenchrome'
+    \ | autocmd! zenchrome
+    \ | endif
+augroup END
