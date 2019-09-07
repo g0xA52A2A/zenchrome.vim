@@ -2,9 +2,10 @@ function! zenchrome#GetColors()
   let colors = {}
   " Ensure one highlight group per line
   let highlights = substitute(execute('highlight'), '\n\s\+', ' ', 'g')
-  for highlight in split(highlights, '\n')
-    let group   = split(highlight)[0]
-    let values  = split(highlight)[2:]
+  let highlights = split(highlights, '\n')
+  call map(highlights, "split(v:val, '\\s\\+xxx\\s\\+')")
+  call map(highlights, "[copy(v:val)[0], split(copy(v:val)[1])]")
+  for [group, values] in highlights
     if values[0] ==# 'cleared'
       let attributes = 'cleared'
     elseif values[0] ==# 'links'
@@ -20,10 +21,8 @@ function! zenchrome#GetColors()
   return colors
 endfunction
 
-function! zenchrome#SetColors(colors)
-  for highlight in items(a:colors)
-    let group       = highlight[0]
-    let attributes  = highlight[1]
+function! zenchrome#SetColors(colorscheme)
+  for [group, attributes] in items(a:colorscheme)
     if has_key(attributes, 'links')
       execute 'highlight link' group join(values(attributes))
     else
