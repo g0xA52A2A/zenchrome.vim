@@ -31,8 +31,10 @@ function! zenchrome#SetColors(colorscheme)
   endfor
 endfunction
 
-function! zenchrome#ClearUndefinedColors(colors)
-   for group in keys(filter(zenchrome#GetColors(), '!has_key(a:colors, v:key)'))
-     execute 'highlight' group 'NONE'
-   endfor
+function! zenchrome#ClearUndefinedColors(colorscheme)
+  let colors = zenchrome#GetColors()
+  let undefined_groups = keys(filter(copy(colors), '!has_key(a:colorscheme, v:key)'))
+  for group in undefined_groups
+    execute 'highlight' group 'NONE'
+  endfor
 endfunction
