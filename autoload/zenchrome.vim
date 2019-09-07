@@ -33,6 +33,15 @@ endfunction
 
 function! zenchrome#ClearUndefinedColors(colorscheme)
   let colors = zenchrome#GetColors()
+  for [group, attributes] in items(a:colorscheme)
+    if string(colors[group]) !=# "'cleared'"
+      let undefined_attributes  = filter(copy(colors[group]), "!has_key(attributes, v:key)")
+      let unset_attributes      = join(map(keys(undefined_attributes), "v:val . '=NONE'"))
+      if !empty(unset_attributes)
+        execute 'highlight' group unset_attributes
+      endif
+    endif
+  endfor
   let undefined_groups = keys(filter(copy(colors), '!has_key(a:colorscheme, v:key)'))
   for group in undefined_groups
     execute 'highlight' group 'NONE'
