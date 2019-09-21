@@ -39,12 +39,6 @@ Whilst the resulting colorscheme is minimal the implementation is not.
 
 The irony of this is not lost on the author.
 
-`GetColors()` returns a nested dictionary of all highlight groups and their
-attributes based on the output of the `highlight` command.
-
-`ClearUndefinedColors()` takes a dictionary and uses the keys as a filter to
-remove items from the dictionary that `GetColors()` returns. What remains is
-removed by setting the highlight groups to "NONE".
-
-`SetColors()` takes a nested dictionary that represents the colorscheme
-iterates over it invoking the required `highlight` commands.
+There are a handful of script local functions to deal with various tasks
+but all you need to know is to define `g:Colorscheme` as a nested
+dictionary should you want your own colors.

@@ -1,48 +1,69 @@
 let g:colors_name='zenchrome'
 
+let s:Black       = 0
+let s:LightRed    = 1
+let s:LightGreen  = 2
+let s:LightYellow = 3
+let s:LightBlue   = 4
+let s:LightPurple = 5
+let s:LightCyan   = 6
+let s:LightGrey   = 7
+let s:DarkGrey    = 8
+let s:DarkRed     = 9
+let s:DarkGreen   = 10
+let s:DarkYellow  = 11
+let s:DarkBlue    = 12
+let s:DarkPurple  = 13
+let s:DarkCyan    = 14
+let s:White       = 15
+
 if &background ==# 'light'
-  let s:Foreground       = 'Black'
-  let s:LightForeground  = 'DarkGrey'
-  let s:Background       = 'White'
-  let s:LightBackground  = 'LightGrey'
+  let s:Foreground       = s:Black
+  let s:LightForeground  = s:DarkGrey
+  let s:Background       = s:White
+  let s:LightBackground  = s:LightGrey
 elseif &background ==# 'dark'
-  let s:Foreground       = 'LightGrey'
-  let s:LightForeground  = 'White'
-  let s:Background       = 'Black'
-  let s:LightBackground  = 'DarkGrey'
+  let s:Foreground       = s:LightGrey
+  let s:LightForeground  = s:White
+  let s:Background       = s:Black
+  let s:LightBackground  = s:DarkGrey
 endif
 
-let g:Colorscheme = {
-  \ 'Normal'     : { 'ctermfg': s:Foreground,      'ctermbg': s:Background,      'cterm': 'none'      },
-  \
-  \ 'Constant'   : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
-  \ 'Cursor'     : { 'ctermfg': s:Background,      'ctermbg': s:LightForeground, 'cterm': 'none'      },
-  \ 'CursorLine' : { 'ctermfg': 'none',            'ctermbg': 'none',            'cterm': 'underline' },
-  \ 'Error'      : { 'ctermfg': 'Red',             'ctermbg': 'none',            'cterm': 'none'      },
-  \ 'PmenuSel'   : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
-  \ 'Search'     : { 'ctermfg': 'none',            'ctermbg': 'none',            'cterm': 'underline' },
-  \ 'StatusLine' : { 'ctermfg': s:LightForeground, 'ctermbg': 'none',            'cterm': 'none'      },
-  \ 'Visual'     : { 'ctermfg': s:Background,      'ctermbg': s:LightForeground, 'cterm': 'none'      },
-  \
-  \ 'Boolean'    : { 'links': 'Constant' },
-  \ 'Float'      : { 'links': 'Constant' },
-  \ 'Number'     : { 'links': 'Constant' },
-  \ 'String'     : { 'links': 'Constant' },
-  \
-  \ 'SpellBad'   : { 'links': 'Error' },
-  \ 'SpellCap'   : { 'links': 'Error' },
-  \ 'Todo'       : { 'links': 'Error' },
-  \ 'WarningMsg' : { 'links': 'Error' },
-  \
-  \ 'IncSearch'  : { 'links': 'Search' },
-  \ }
+if !exists('g:Colorscheme')
+  let g:Colorscheme = {
+    \ 'Normal'     : { 'ctermfg': s:Foreground, 'ctermbg': s:Background },
+    \
+    \ 'Cursor'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
+    \ 'Visual'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
+    \
+    \ 'Constant'   : { 'ctermfg': s:LightForeground },
+    \ 'PmenuSel'   : { 'ctermfg': s:LightForeground },
+    \ 'StatusLine' : { 'ctermfg': s:LightForeground },
+    \
+    \ 'Error'      : { 'ctermfg': s:LightRed },
+    \
+    \ 'CursorLine' : { 'cterm': 'underline' },
+    \ 'Search'     : { 'cterm': 'underline' },
+    \
+    \ 'Boolean'    : { 'links': 'Constant' },
+    \ 'Float'      : { 'links': 'Constant' },
+    \ 'Number'     : { 'links': 'Constant' },
+    \ 'String'     : { 'links': 'Constant' },
+    \
+    \ 'SpellBad'   : { 'links': 'Error' },
+    \ 'SpellCap'   : { 'links': 'Error' },
+    \ 'Todo'       : { 'links': 'Error' },
+    \ 'WarningMsg' : { 'links': 'Error' },
+    \
+    \ 'IncSearch'  : { 'links': 'Search' },
+    \ }
+endif
 
-call zenchrome#ClearUndefinedColors(g:Colorscheme)
-call zenchrome#SetColors(g:Colorscheme)
+call zenchrome#SyncColors()
 
 augroup zenchrome
   autocmd!
-  autocmd Syntax * call zenchrome#ClearUndefinedColors(g:Colorscheme)
+  autocmd Syntax * call zenchrome#SyncColors()
   autocmd Colorscheme *
     \ if g:colors_name !=# 'zenchrome'
     \ | autocmd! zenchrome

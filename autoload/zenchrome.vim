@@ -1,17 +1,19 @@
-function! zenchrome#GetColors()
-  let colors = {}
-  " Ensure one highlight group per line
-  let highlights = substitute(execute('highlight'), '\n\s\+', ' ', 'g')
-  let highlights = split(highlights, '\n')
+function! s:GetHighlights()
+  let highlights  = execute('highlight')
+  let highlights  = substitute(highlights, '\n\s\+', ' ', 'g')
+  let highlights  = split(highlights, '\n')
   call map(highlights, "split(v:val, '\\s\\+xxx\\s\\+')")
   call map(highlights, "[copy(v:val)[0], split(copy(v:val)[1])]")
-  for [group, values] in highlights
-    if values[0] ==# 'cleared'
-      let attributes = 'cleared'
-    elseif values[0] ==# 'links'
-      let attributes = {'links' : values[-1]}
-    else
-      let attributes = {}
+  return highlights
+endfunction
+
+function! s:GetColors()
+  let colors = {}
+  for [group, values] in <SID>GetHighlights()
+    let attributes = {}
+    if values[0] ==# 'links'
+      let attributes['links'] = values[-1]
+    elseif values[0] !=# 'cleared'
       call map(values, "split(v:val, '=')")
       call map(values, "{v:val[0]: v:val[1]}")
       call map(values, "extend(attributes, v:val)")
@@ -21,8 +23,9 @@ function! zenchrome#GetColors()
   return colors
 endfunction
 
-function! zenchrome#SetColors(colorscheme)
-  for [group, attributes] in items(a:colorscheme)
+function! s:SetColors(colors)
+  for [group, attributes] in items(a:colors)
+    execute 'highlight' group 'NONE'
     if has_key(attributes, 'links')
       execute 'highlight link' group join(values(attributes))
     else
@@ -31,19 +34,13 @@ function! zenchrome#SetColors(colorscheme)
   endfor
 endfunction
 
-function! zenchrome#ClearUndefinedColors(colorscheme)
-  let colors = zenchrome#GetColors()
-  for [group, attributes] in items(a:colorscheme)
-    if string(colors[group]) !=# "'cleared'"
-      let undefined_attributes  = filter(copy(colors[group]), "!has_key(attributes, v:key)")
-      let unset_attributes      = join(map(keys(undefined_attributes), "v:val . '=NONE'"))
-      if !empty(unset_attributes)
-        execute 'highlight' group unset_attributes
-      endif
+function! zenchrome#SyncColors()
+  let colors = <SID>GetColors()
+  for [group, attributes] in items(g:Colorscheme)
+    if attributes !=# colors[group]
+      call <SID>SetColors({group: attributes})
     endif
   endfor
-  let undefined_groups = keys(filter(copy(colors), '!has_key(a:colorscheme, v:key)'))
-  for group in undefined_groups
-    execute 'highlight' group 'NONE'
-  endfor
+  let undefined_groups = filter(keys(colors), "!has_key(g:Colorscheme, v:val)")
+  call map(undefined_groups, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
 endfunction
