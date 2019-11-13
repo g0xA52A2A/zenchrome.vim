@@ -9,8 +9,6 @@ Screenshots
 Note as this colorscheme only utilizes terminal colors this may, and indeed
 likely will, differ from the result in your terminal.
 
-TODO - Add screenshot links
-
 Design
 ------
 
