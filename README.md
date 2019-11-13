@@ -38,7 +38,3 @@ Implementation
 Whilst the resulting colorscheme is minimal the implementation is not.
 
 The irony of this is not lost on the author.
-
-There are a handful of script local functions to deal with various tasks
-but all you need to know is to define `g:Colorscheme` as a nested
-dictionary should you want your own colors.

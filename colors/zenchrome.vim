@@ -29,35 +29,33 @@ elseif &background ==# 'dark'
   let s:LightBackground  = s:DarkGrey
 endif
 
-if !exists('g:Colorscheme')
-  let g:Colorscheme = {
-    \ 'Normal'     : { 'ctermfg': s:Foreground, 'ctermbg': s:Background },
-    \
-    \ 'Cursor'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
-    \ 'Visual'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
-    \
-    \ 'Constant'   : { 'ctermfg': s:LightForeground },
-    \ 'PmenuSel'   : { 'ctermfg': s:LightForeground },
-    \ 'StatusLine' : { 'ctermfg': s:LightForeground },
-    \
-    \ 'Error'      : { 'ctermfg': s:LightRed },
-    \
-    \ 'CursorLine' : { 'cterm': 'underline' },
-    \ 'Search'     : { 'cterm': 'underline' },
-    \
-    \ 'Boolean'    : { 'links': 'Constant' },
-    \ 'Float'      : { 'links': 'Constant' },
-    \ 'Number'     : { 'links': 'Constant' },
-    \ 'String'     : { 'links': 'Constant' },
-    \
-    \ 'SpellBad'   : { 'links': 'Error' },
-    \ 'SpellCap'   : { 'links': 'Error' },
-    \ 'Todo'       : { 'links': 'Error' },
-    \ 'WarningMsg' : { 'links': 'Error' },
-    \
-    \ 'IncSearch'  : { 'links': 'Search' },
-    \ }
-endif
+let g:Colorscheme = {
+  \ 'Normal'     : { 'ctermfg': s:Foreground, 'ctermbg': s:Background },
+  \
+  \ 'Cursor'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
+  \ 'Visual'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
+  \
+  \ 'Constant'   : { 'ctermfg': s:LightForeground },
+  \ 'PmenuSel'   : { 'ctermfg': s:LightForeground },
+  \ 'StatusLine' : { 'ctermfg': s:LightForeground },
+  \
+  \ 'Error'      : { 'ctermfg': s:LightRed },
+  \
+  \ 'CursorLine' : { 'cterm': 'underline' },
+  \ 'Search'     : { 'cterm': 'underline' },
+  \
+  \ 'Boolean'    : { 'links': 'Constant' },
+  \ 'Float'      : { 'links': 'Constant' },
+  \ 'Number'     : { 'links': 'Constant' },
+  \ 'String'     : { 'links': 'Constant' },
+  \
+  \ 'SpellBad'   : { 'links': 'Error' },
+  \ 'SpellCap'   : { 'links': 'Error' },
+  \ 'Todo'       : { 'links': 'Error' },
+  \ 'WarningMsg' : { 'links': 'Error' },
+  \
+  \ 'IncSearch'  : { 'links': 'Search' },
+  \ }
 
 call zenchrome#SyncColors()
 
