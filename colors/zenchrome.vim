@@ -57,11 +57,11 @@ let g:Colorscheme = {
   \ 'IncSearch'  : { 'links': 'Search' },
   \ }
 
-call zenchrome#SyncColors()
+call zenchrome#Sync()
 
 augroup zenchrome
   autocmd!
-  autocmd Syntax * call zenchrome#SyncColors()
+  autocmd Syntax * call zenchrome#Sync()
   autocmd Colorscheme *
     \ if g:colors_name !=# 'zenchrome'
     \ | autocmd! zenchrome

@@ -34,13 +34,21 @@ function! s:SetColors(colors)
   endfor
 endfunction
 
-function! zenchrome#SyncColors()
-  let colors = <SID>GetColors()
+function! s:SyncColors(colors)
   for [group, attributes] in items(g:Colorscheme)
-    if attributes !=# colors[group]
+    if attributes !=# a:colors[group]
       call <SID>SetColors({group: attributes})
     endif
   endfor
-  let undefined_groups = filter(keys(colors), "!has_key(g:Colorscheme, v:val)")
+endfunction
+
+function! s:ClearUndefinedColors(colors)
+  let undefined_groups = filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)")
   call map(undefined_groups, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
+endfunction
+
+function! zenchrome#Sync()
+  let colors = <SID>GetColors()
+  call <SID>SyncColors(colors)
+  call <SID>ClearUndefinedColors(colors)
 endfunction
