@@ -57,6 +57,8 @@ let g:Colorscheme = {
   \ 'IncSearch'  : { 'links': 'Search' },
   \ }
 
+lockvar g:Colorscheme
+
 call zenchrome#Sync()
 
 augroup zenchrome
