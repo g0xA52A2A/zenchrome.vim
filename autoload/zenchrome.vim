@@ -9,7 +9,7 @@ endfunction
 
 function! s:GetColors() abort
   let colors = {}
-  for [group, values] in <SID>GetHighlights()
+  for [group, values] in s:GetHighlights()
     let attributes = {}
     if values[0] ==# 'links'
       let attributes['links'] = values[-1]
@@ -37,7 +37,7 @@ endfunction
 function! s:SyncColors(colors) abort
   for [group, attributes] in items(g:Colorscheme)
     if attributes !=# a:colors[group]
-      call <SID>SetColors({group: attributes})
+      call s:SetColors({group: attributes})
     endif
   endfor
 endfunction
@@ -48,7 +48,7 @@ function! s:ClearUndefinedColors(colors) abort
 endfunction
 
 function! zenchrome#Sync() abort
-  let colors = <SID>GetColors()
-  call <SID>SyncColors(colors)
-  call <SID>ClearUndefinedColors(colors)
+  let colors = s:GetColors()
+  call s:SyncColors(colors)
+  call s:ClearUndefinedColors(colors)
 endfunction
