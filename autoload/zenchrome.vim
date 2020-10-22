@@ -1,7 +1,7 @@
 function! s:GetHighlights() abort
-  let highlights  = execute('highlight')
-  let highlights  = substitute(highlights, '\n\s\+', ' ', 'g')
-  let highlights  = split(highlights, '\n')
+  let highlights = execute('highlight')
+  let highlights = substitute(highlights, '\n\s\+', ' ', 'g')
+  let highlights = split(highlights, '\n')
   call map(highlights, "split(v:val, '\\s\\+xxx\\s\\+')")
   call map(highlights, "[copy(v:val)[0], split(copy(v:val)[1])]")
   return highlights
