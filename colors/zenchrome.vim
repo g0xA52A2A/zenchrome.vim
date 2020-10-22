@@ -61,11 +61,11 @@ lockvar g:Colorscheme
 
 call zenchrome#Sync()
 
-augroup zenchrome
+augroup Zenchrome
   autocmd!
   autocmd Syntax * call zenchrome#Sync()
   autocmd Colorscheme *
     \ if g:colors_name !=# 'zenchrome'
-    \ | autocmd! zenchrome
+    \ | autocmd! Zenchrome
     \ | endif
 augroup END
