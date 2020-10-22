@@ -1,4 +1,4 @@
-function! s:GetHighlights()
+function! s:GetHighlights() abort
   let highlights  = execute('highlight')
   let highlights  = substitute(highlights, '\n\s\+', ' ', 'g')
   let highlights  = split(highlights, '\n')
@@ -7,7 +7,7 @@ function! s:GetHighlights()
   return highlights
 endfunction
 
-function! s:GetColors()
+function! s:GetColors() abort
   let colors = {}
   for [group, values] in <SID>GetHighlights()
     let attributes = {}
@@ -23,7 +23,7 @@ function! s:GetColors()
   return colors
 endfunction
 
-function! s:SetColors(colors)
+function! s:SetColors(colors) abort
   for [group, attributes] in items(a:colors)
     execute 'highlight' group 'NONE'
     if has_key(attributes, 'links')
@@ -34,7 +34,7 @@ function! s:SetColors(colors)
   endfor
 endfunction
 
-function! s:SyncColors(colors)
+function! s:SyncColors(colors) abort
   for [group, attributes] in items(g:Colorscheme)
     if attributes !=# a:colors[group]
       call <SID>SetColors({group: attributes})
@@ -42,12 +42,12 @@ function! s:SyncColors(colors)
   endfor
 endfunction
 
-function! s:ClearUndefinedColors(colors)
+function! s:ClearUndefinedColors(colors) abort
   let undefined_groups = filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)")
   call map(undefined_groups, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
 endfunction
 
-function! zenchrome#Sync()
+function! zenchrome#Sync() abort
   let colors = <SID>GetColors()
   call <SID>SyncColors(colors)
   call <SID>ClearUndefinedColors(colors)
