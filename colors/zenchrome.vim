@@ -30,31 +30,31 @@ elseif &background ==# 'dark'
 endif
 
 let g:Colorscheme = {
-  \ 'Normal'     : { 'ctermfg': s:Foreground, 'ctermbg': s:Background },
+  \ 'Normal'       : { 'ctermfg': s:Foreground, 'ctermbg': s:Background },
+  \ 'Visual'       : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
   \
-  \ 'Cursor'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
-  \ 'Visual'     : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
+  \ 'CursorLine'   : { 'cterm': 'underline' },
   \
-  \ 'Constant'   : { 'ctermfg': s:LightForeground },
-  \ 'PmenuSel'   : { 'ctermfg': s:LightForeground },
-  \ 'StatusLine' : { 'ctermfg': s:LightForeground },
+  \ 'Constant'     : { 'ctermfg': s:LightForeground },
   \
-  \ 'Error'      : { 'ctermfg': s:LightRed },
+  \ 'Boolean'      : { 'links': 'Constant' },
+  \ 'Float'        : { 'links': 'Constant' },
+  \ 'Number'       : { 'links': 'Constant' },
+  \ 'PmenuSel'     : { 'links': 'Constant' },
+  \ 'QuickFixLine' : { 'links': 'Constant' },
+  \ 'StatusLine'   : { 'links': 'Constant' },
+  \ 'String'       : { 'links': 'Constant' },
   \
-  \ 'CursorLine' : { 'cterm': 'underline' },
-  \ 'Search'     : { 'cterm': 'underline' },
+  \ 'Error'        : { 'ctermfg': s:LightRed },
   \
-  \ 'Boolean'    : { 'links': 'Constant' },
-  \ 'Float'      : { 'links': 'Constant' },
-  \ 'Number'     : { 'links': 'Constant' },
-  \ 'String'     : { 'links': 'Constant' },
+  \ 'SpellBad'     : { 'links': 'Error' },
+  \ 'SpellCap'     : { 'links': 'Error' },
+  \ 'Todo'         : { 'links': 'Error' },
+  \ 'WarningMsg'   : { 'links': 'Error' },
   \
-  \ 'SpellBad'   : { 'links': 'Error' },
-  \ 'SpellCap'   : { 'links': 'Error' },
-  \ 'Todo'       : { 'links': 'Error' },
-  \ 'WarningMsg' : { 'links': 'Error' },
+  \ 'Search'       : { 'cterm': 'underline' },
   \
-  \ 'IncSearch'  : { 'links': 'Search' },
+  \ 'IncSearch'    : { 'links': 'Search' },
   \ }
 
 lockvar g:Colorscheme
