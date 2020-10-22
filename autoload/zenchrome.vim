@@ -23,23 +23,18 @@ function! s:GetColors() abort
   return colors
 endfunction
 
-function! s:SetColors(colors) abort
-  for [group, attributes] in items(a:colors)
-    execute 'highlight' group 'NONE'
-    if has_key(attributes, 'links')
-      execute 'highlight link' group join(values(attributes))
-    else
-      execute 'highlight' group join(map(items(attributes), "join(v:val, '=')"))
-    endif
-  endfor
+function! s:SetColors(group, attributes) abort
+  execute 'highlight' a:group 'NONE'
+  if has_key(a:attributes, 'links')
+    execute 'highlight link' a:group join(values(a:attributes))
+  else
+    execute 'highlight' a:group join(map(items(a:attributes), "join(v:val, '=')"))
+  endif
 endfunction
 
 function! s:SyncColors(colors) abort
-  for [group, attributes] in items(g:Colorscheme)
-    if attributes !=# a:colors[group]
-      call s:SetColors({group: attributes})
-    endif
-  endfor
+  let mismatches = filter(copy(g:Colorscheme), "a:colors[v:key] !=# v:val")
+  call map(mismatches, "s:SetColors(v:key, v:val)")
 endfunction
 
 function! s:ClearUndefinedColors(colors) abort
