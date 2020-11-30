@@ -1,4 +1,4 @@
-function! s:GetHighlights() abort
+function! s:Lex() abort
   let highlights = execute('highlight')
   let highlights = substitute(highlights, '\n\s\+', ' ', 'g')
   let highlights = split(highlights, '\n')
@@ -7,9 +7,9 @@ function! s:GetHighlights() abort
   return highlights
 endfunction
 
-function! s:GetColors() abort
+function! s:Parse() abort
   let colors = {}
-  for [group, values] in s:GetHighlights()
+  for [group, values] in s:Lex()
     let attributes = {}
     if values[0] ==# 'links'
       let attributes['links'] = values[-1]
@@ -23,7 +23,7 @@ function! s:GetColors() abort
   return colors
 endfunction
 
-function! s:SetColors(group, attributes) abort
+function! s:Set(group, attributes) abort
   execute 'highlight' a:group 'NONE'
   if has_key(a:attributes, 'links')
     execute 'highlight link' a:group join(values(a:attributes))
@@ -32,18 +32,18 @@ function! s:SetColors(group, attributes) abort
   endif
 endfunction
 
-function! s:SyncColors(colors) abort
+function! s:Sync(colors) abort
   let mismatches = filter(copy(g:Colorscheme), "a:colors[v:key] !=# v:val")
-  call map(mismatches, "s:SetColors(v:key, v:val)")
+  call map(mismatches, "s:Set(v:key, v:val)")
 endfunction
 
-function! s:ClearUndefinedColors(colors) abort
+function! s:ClearUndefined(colors) abort
   let undefined_groups = filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)")
   call map(undefined_groups, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
 endfunction
 
 function! zenchrome#Sync() abort
-  let colors = s:GetColors()
-  call s:SyncColors(colors)
-  call s:ClearUndefinedColors(colors)
+  let colors = s:Parse()
+  call s:Sync(colors)
+  call s:ClearUndefined(colors)
 endfunction
