@@ -21,7 +21,6 @@ function! s:Parse(highlight) abort
 endfunction
 
 function! s:Set(group, attributes) abort
-  execute 'highlight' a:group 'NONE'
   if has_key(a:attributes, 'links')
     execute 'highlight link' a:group join(values(a:attributes))
   else
@@ -31,7 +30,8 @@ endfunction
 
 function! s:Sync(colors) abort
   let mismatches = filter(copy(g:Colorscheme), "a:colors[v:key] !=# v:val")
-  call map(mismatches, "s:Set(v:key, v:val)")
+  call map(copy(mismatches), "execute('highlight' . ' ' . v:key . ' ' . 'NONE')")
+  call map(copy(mismatches), "s:Set(v:key, v:val)")
 endfunction
 
 function! s:ClearUndefined(colors) abort
