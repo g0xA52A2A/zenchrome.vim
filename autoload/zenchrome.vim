@@ -7,20 +7,17 @@ function! s:Lex() abort
   return highlights
 endfunction
 
-function! s:Parse() abort
-  let colors = {}
-  for [group, values] in s:Lex()
-    let attributes = {}
-    if values[0] ==# 'links'
-      let attributes['links'] = values[-1]
-    elseif values[0] !=# 'cleared'
-      call map(values, "split(v:val, '=')")
-      call map(values, "{v:val[0]: v:val[1]}")
-      call map(values, "extend(attributes, v:val)")
-    endif
-    let colors[group] = attributes
-  endfor
-  return colors
+function! s:Parse(highlight) abort
+  let [group, values] = a:highlight
+  let attributes = {}
+  if values[0] ==# 'links'
+    let attributes['links'] = values[-1]
+  elseif values[0] !=# 'cleared'
+    call map(values, "split(v:val, '=')")
+    call map(values, "{v:val[0]: v:val[1]}")
+    call map(values, "extend(attributes, v:val)")
+  endif
+  return {group : attributes}
 endfunction
 
 function! s:Set(group, attributes) abort
@@ -43,7 +40,9 @@ function! s:ClearUndefined(colors) abort
 endfunction
 
 function! zenchrome#Sync() abort
-  let colors = s:Parse()
+  let colors = {}
+  call map(s:Lex(), "extend(colors, s:Parse(v:val))")
+
   call s:Sync(colors)
   call s:ClearUndefined(colors)
 endfunction
