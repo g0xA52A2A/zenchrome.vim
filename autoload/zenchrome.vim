@@ -35,8 +35,8 @@ function! s:Sync(colors) abort
 endfunction
 
 function! s:ClearUndefined(colors) abort
-  let undefined_groups = filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)")
-  call map(undefined_groups, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
+  let undefined = filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)")
+  call map(undefined, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
 endfunction
 
 function! zenchrome#Sync() abort
