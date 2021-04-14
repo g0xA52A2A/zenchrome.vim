@@ -1,16 +1,13 @@
-zenchrome
-=========
+# zenchrome
 
 A minimal Vim colorscheme for the terminal that clears implicit colors.
 
-Screenshots
------------
+## Screenshots
 
 Note as this colorscheme only utilizes terminal colors this may, and indeed
 likely will, differ from the result in your terminal.
 
-Design
-------
+## Design
 
 Vim sets a number of highlight groups by default. As such when creating
 a colorscheme for Vim you never actually start from a blank slate.
@@ -30,8 +27,7 @@ default highlight groups can get re-added. As such manually clearing or
 overriding Vim's default highlight groups at startup isn't sufficient if you
 want a minimal colorscheme and/or total control over highlights.
 
-Implementation
---------------
+## Implementation
 
 Whilst the resulting colorscheme is minimal the implementation is not.
 
