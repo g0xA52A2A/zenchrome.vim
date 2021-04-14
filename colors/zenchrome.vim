@@ -29,8 +29,6 @@ elseif &background ==# 'dark'
   let s:LightBackground  = s:DarkGrey
 endif
 
-unlockvar g:Colorscheme
-
 let g:Colorscheme = {
   \ 'Normal'       : { 'ctermfg': s:Foreground, 'ctermbg': s:Background },
   \ 'Visual'       : { 'ctermfg': s:Background, 'ctermbg': s:LightForeground },
@@ -58,8 +56,6 @@ let g:Colorscheme = {
   \
   \ 'IncSearch'    : { 'links': 'Search' },
   \ }
-
-lockvar g:Colorscheme
 
 call zenchrome#Sync()
 
