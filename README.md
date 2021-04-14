@@ -1,4 +1,4 @@
-# zenchrome
+# zenchrome.vim
 
 A minimal Vim colorscheme for the terminal that clears implicit colors.
 
