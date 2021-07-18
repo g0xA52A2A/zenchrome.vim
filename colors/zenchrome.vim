@@ -1,32 +1,15 @@
 let g:colors_name='zenchrome'
 
-let s:Black       = 0
-let s:LightRed    = 1
-let s:LightGreen  = 2
-let s:LightYellow = 3
-let s:LightBlue   = 4
-let s:LightPurple = 5
-let s:LightCyan   = 6
-let s:LightGrey   = 7
-let s:DarkGrey    = 8
-let s:DarkRed     = 9
-let s:DarkGreen   = 10
-let s:DarkYellow  = 11
-let s:DarkBlue    = 12
-let s:DarkPurple  = 13
-let s:DarkCyan    = 14
-let s:White       = 15
-
 if &background ==# 'light'
-  let s:Foreground       = s:Black
-  let s:LightForeground  = s:DarkGrey
-  let s:Background       = s:White
-  let s:LightBackground  = s:LightGrey
+  let s:Foreground       = 'Black'
+  let s:LightForeground  = 'DarkGrey'
+  let s:Background       = 'White'
+  let s:LightBackground  = 'LightGrey'
 elseif &background ==# 'dark'
-  let s:Foreground       = s:LightGrey
-  let s:LightForeground  = s:White
-  let s:Background       = s:Black
-  let s:LightBackground  = s:DarkGrey
+  let s:Foreground       = 'LightGrey'
+  let s:LightForeground  = 'White'
+  let s:Background       = 'Black'
+  let s:LightBackground  = 'DarkGrey'
 endif
 
 let g:Colorscheme = {
@@ -45,7 +28,7 @@ let g:Colorscheme = {
   \ 'StatusLine'   : { 'links': 'Constant' },
   \ 'String'       : { 'links': 'Constant' },
   \
-  \ 'Error'        : { 'ctermfg': s:LightRed },
+  \ 'Error'        : { 'ctermfg': 'LightRed' },
   \
   \ 'SpellBad'     : { 'links': 'Error' },
   \ 'SpellCap'     : { 'links': 'Error' },
