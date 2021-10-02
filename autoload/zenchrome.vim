@@ -20,23 +20,20 @@ function! s:Parse(highlight) abort
   return {group : attributes}
 endfunction
 
-function! s:Set(group, attributes) abort
-  if has_key(a:attributes, 'links')
-    execute 'highlight link' a:group join(values(a:attributes))
-  else
-    execute 'highlight' a:group join(map(items(a:attributes), "join(v:val, '=')"))
+function! s:Set(group, ...) abort
+  execute 'highlight' a:group 'NONE'
+  if a:0
+    execute 'highlight' join(has_key(a:1, 'links') ?
+      \ ['link', a:group, join(values(a:1))] :
+      \ [        a:group, join(map(items(a:1), "join(v:val, '=')"))])
   endif
 endfunction
 
 function! s:Sync(colors) abort
-  let mismatches = filter(copy(g:Colorscheme), "a:colors[v:key] !=# v:val")
-  call map(copy(mismatches), "execute('highlight' . ' ' . v:key . ' ' . 'NONE')")
-  call map(copy(mismatches), "s:Set(v:key, v:val)")
-endfunction
-
-function! s:ClearUndefined(colors) abort
-  let undefined = filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)")
-  call map(undefined, "execute('highlight' . ' ' . v:val . ' ' . 'NONE')")
+  call map(filter(copy(g:Colorscheme), "a:colors[v:key] !=# v:val"),
+    \      "s:Set(v:key, v:val)")
+  call map(filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)"),
+    \      "s:Set(v:val)")
 endfunction
 
 function! zenchrome#Sync() abort
@@ -44,5 +41,4 @@ function! zenchrome#Sync() abort
   call map(s:Lex(), "extend(colors, s:Parse(v:val))")
 
   call s:Sync(colors)
-  call s:ClearUndefined(colors)
 endfunction
