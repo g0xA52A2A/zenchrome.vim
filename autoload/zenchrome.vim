@@ -11,7 +11,7 @@ function! s:Parse(highlight) abort
   let [group, values] = a:highlight
   let attributes = {}
   if values[0] ==# 'links'
-    let attributes['links'] = values[-1]
+    let attributes = {'links' : values[-1]}
   elseif values[0] !=# 'cleared'
     call map(values, "split(v:val, '=')")
     call map(values, "{v:val[0]: v:val[1]}")
