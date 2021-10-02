@@ -27,6 +27,14 @@ default highlight groups can get re-added. As such manually clearing or
 overriding Vim's default highlight groups at startup isn't sufficient if you
 want a minimal colorscheme and/or total control over highlights.
 
+## Customising
+
+You can provide your own theme be defining a function called
+`ColorScheme` that returns a dictionary, take a look at the default in
+`autoload/zenchrome/default.vim` for an example. The reason a function
+is expected rather than a variable is to allow for dynamic content,
+namely varying depending upon the value of `&background`.
+
 ## Implementation
 
 Whilst the resulting colorscheme is minimal the implementation is not.

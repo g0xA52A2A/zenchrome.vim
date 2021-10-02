@@ -29,9 +29,9 @@ function! zenchrome#helpers#Set(group, ...) abort
   endif
 endfunction
 
-function! zenchrome#helpers#Sync(colors) abort
-  call map(filter(copy(g:Colorscheme), "a:colors[v:key] !=# v:val"),
+function! zenchrome#helpers#Sync(current, scheme) abort
+  call map(filter(copy(a:scheme), "a:current[v:key] !=# v:val"),
     \      "zenchrome#helpers#Set(v:key, v:val)")
-  call map(filter(keys(a:colors), "!has_key(g:Colorscheme, v:val)"),
+  call map(filter(keys(a:current), "!has_key(a:scheme, v:val)"),
     \      "zenchrome#helpers#Set(v:val)")
 endfunction
